@@ -16,5 +16,16 @@ namespace HaackHub
                 _ => throw new InvalidOperationException("Don't know about that.")
             };
         }
+
+        public string GetAnnotationDescription(Annotation annotation)
+        {
+            return annotation switch
+            {
+                (0, 0) => "Annotation is the first line only",
+                (0, _) => "Annotation starts at the beginning",
+                (_, _) => "Annotation starts somewhere in the middle",
+                _ => throw new InvalidOperationException("Something ain't right with my logic")
+            };
+        }
     }
 }
