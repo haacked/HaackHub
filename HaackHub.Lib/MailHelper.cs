@@ -30,15 +30,20 @@ namespace HaackHub
 
         public string GetIssueDescription(Issue issue)
         {
-            var assignedTo = issue.Assigned is null
+            var assignedTo = IsNull(issue.Assigned)
                 ? " not assigned"
-                : GetAssignedToMessage(issue.Assigned);
+                : GetAssignedToMessage(issue.Assigned!);
             return $"{issue.Title} created by {issue.Creator.Name} and {assignedTo}.";
         }
 
         public string GetAssignedToMessage(User assignee)
         {
             return $"assigned to {assignee.Id}";
+        }
+
+        bool IsNull(User? user)
+        {
+            return user is null;
         }
     }
 }
