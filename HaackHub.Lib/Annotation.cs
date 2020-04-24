@@ -12,6 +12,10 @@ namespace HaackHub
             (start, end) = (LineNumberRange.Start.Value, LineNumberRange.End.Value);
         }
 
-        public string Excerpt => string.Empty;
+        public string Excerpt =>
+            string.Join('\n', Content.Text.Split('\n')[LineNumberRange]);
+
+        
+        protected abstract Content Content { get; }
     }
 }

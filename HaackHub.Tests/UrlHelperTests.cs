@@ -54,7 +54,7 @@ public class UrlHelperTests
             var issueAnnotation = new IssueAnnotation
             {
                 Issue = new Issue {Id = 42},
-                LineNumberRange = new Range(3, 10)
+                LineNumberRange = 3..10
             };
             var urlHelper = new UrlHelper();
 
@@ -73,7 +73,7 @@ public class UrlHelperTests
                     Id = 75,
                     Issue = new Issue { Id = 42 }
                 },
-                LineNumberRange = new Range(5, 6)
+                LineNumberRange = 5..6
             };
             
             var urlHelper = new UrlHelper();

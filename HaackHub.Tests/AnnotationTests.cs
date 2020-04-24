@@ -1,6 +1,7 @@
 using System;
 using HaackHub;
 using Xunit;
+using Xunit.Abstractions;
 
 public class AnnotationTests
 {
@@ -11,7 +12,7 @@ public class AnnotationTests
         {
             var issueAnnotation = new IssueAnnotation
             {
-                LineNumberRange = new Range(0, 3)
+                LineNumberRange = 0..3
             };
 
             var (start, end) = issueAnnotation;
@@ -28,7 +29,7 @@ public class AnnotationTests
         {
             var issueAnnotation = new IssueAnnotation
             {
-                LineNumberRange = new Range(1, 4),
+                LineNumberRange = 1..4,
                 Issue = new Issue
                 {
                     Text = "This is the first line\n"
@@ -44,6 +45,37 @@ public class AnnotationTests
             Assert.Equal("And this is the second line\n"
                          + "And this is getting boring\n"
                          + "I should be more creative", excerpt);
+        }
+
+        [Fact]
+        public void OtherCoolRangeStuff()
+        {
+            var words = new[]
+            {
+                "zero", "one", "two", "three", "four"
+            };
+
+            foreach (var word in words[1..3])
+            {
+                Console.WriteLine(word);
+            }
+            Console.Write("---------");
+            
+            foreach (var word in words[^3..^0])
+            {
+                Console.WriteLine(word);
+            }
+            Console.Write("---------");
+            foreach (var word in words[2..])
+            {
+                Console.WriteLine(word);
+            }
+            Console.Write("---------");
+
+            
+            Console.WriteLine(words[^1]); // Write the last word
+            Console.Write("---------");
+
         }
     }
 }
