@@ -11,12 +11,15 @@ public class EntityExtensionsTests
             var issue = new Issue
             {
                 Id = 42,
-                Creator = new User()
+                Creator = new User { Name = "haacked" }
             };
 
             var description = issue.GetLogDescription();
             
-            Assert.Equal("Issue with ID: 42", description);
+            Assert.Equal("Issue 42 created by haacked", description);
+
+            IEntity entity = issue;
+            Assert.Equal("Issue 42 created by haacked", entity.GetLogDescription());
         }
     }
 }
