@@ -47,5 +47,40 @@ public class UrlHelperTests
         class UnknownContent : Content
         {
         }
+        
+        [Fact]
+        public void ReturnsCorrectUrlForIssueAnnotation()
+        {
+            var issueAnnotation = new IssueAnnotation
+            {
+                Issue = new Issue {Id = 42},
+                LineNumberRange = new Range(3, 10)
+            };
+            var urlHelper = new UrlHelper();
+
+            var url = urlHelper.GetUrl(issueAnnotation);
+
+            Assert.Equal("/issue/42#L3-L10", url);
+        }
+        
+        [Fact]
+        public void ReturnsCorrectUrlForCommentAnnotation()
+        {
+            var commentAnnotation = new CommentAnnotation
+            {
+                Comment = new Comment
+                {
+                    Id = 75,
+                    Issue = new Issue { Id = 42 }
+                },
+                LineNumberRange = new Range(5, 6)
+            };
+            
+            var urlHelper = new UrlHelper();
+
+            var url = urlHelper.GetUrl(commentAnnotation);
+
+            Assert.Equal("/issue/42#comment_75&L5-L6", url);
+        }
     }
 }
