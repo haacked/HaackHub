@@ -5,6 +5,6 @@ namespace HaackHub
     /// </summary>
     public class Comment : Content
     {
-        public Issue Issue { get; set; }
+        public Issue Issue { get; set; } = null!; // Because we expect our ORM to set this.
     }
 }

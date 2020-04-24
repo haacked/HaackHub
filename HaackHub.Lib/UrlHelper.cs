@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 
 namespace HaackHub
@@ -7,7 +8,7 @@ namespace HaackHub
     /// </summary>
     public class UrlHelper
     {
-        public string GetUrl(Content content)
+        public string GetUrl(Content? content)
         {
             return content switch
             {
