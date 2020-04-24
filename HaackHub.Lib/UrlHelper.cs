@@ -12,13 +12,13 @@ namespace HaackHub
             var issue = content as Issue;
             if (issue != null)
             {
-                return "/issue/" + issue.Id;
+                return $"/issue/{issue.Id}";
             }
 
             var comment = content as Comment;
             if (comment != null)
             {
-                return "/issue/" + comment.Issue.Id + "#comment_" + comment.Id;
+                return $"/issue/{comment.Issue.Id}#comment_{comment.Id}";
             }
 
             var issueAnnotation = content as IssueAnnotation;
