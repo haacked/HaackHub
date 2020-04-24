@@ -6,5 +6,9 @@ namespace HaackHub
     public class Issue : Content
     {
         public string Title { get; set; } = null!; // We expect EF Core to set this for us.
+
+        public User Creator { get; set; } = null!;
+        
+        public User? Assigned { get; set; }
     }
 }

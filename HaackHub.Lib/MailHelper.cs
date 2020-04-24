@@ -27,5 +27,16 @@ namespace HaackHub
                 _ => throw new InvalidOperationException("Something ain't right with my logic")
             };
         }
+
+        public string GetIssueDescription(Issue issue)
+        {
+            var assignedTo = GetAssignedToMessage(issue.Assigned);
+            return $"{issue.Title} created by {issue.Creator.Name} and {assignedTo}";
+        }
+
+        public string GetAssignedToMessage(User assignee)
+        {
+            return $"assigned to {assignee.Id}.";
+        }
     }
 }
