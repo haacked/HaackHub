@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <LangVersion>3</LangVersion>
+        <LangVersion>8</LangVersion>
         <RootNamespace>HaackHub</RootNamespace>
     </PropertyGroup>
 
