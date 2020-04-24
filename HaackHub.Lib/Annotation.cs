@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace HaackHub
 {
@@ -10,5 +11,7 @@ namespace HaackHub
         {
             (start, end) = (LineNumberRange.Start.Value, LineNumberRange.End.Value);
         }
+
+        public string Excerpt => string.Empty;
     }
 }

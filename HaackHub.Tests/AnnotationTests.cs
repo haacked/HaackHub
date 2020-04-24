@@ -20,4 +20,30 @@ public class AnnotationTests
             Assert.Equal(3, end);
         }
     }
+
+    public class TheExcerptProperty
+    {
+        [Fact]
+        public void ReturnsRangeOfContent()
+        {
+            var issueAnnotation = new IssueAnnotation
+            {
+                LineNumberRange = new Range(1, 4),
+                Issue = new Issue
+                {
+                    Text = "This is the first line\n"
+                           + "And this is the second line\n"
+                           + "And this is getting boring\n"
+                           + "I should be more creative\n"
+                           + "But this is what I got."
+                }
+            };
+
+            var excerpt = issueAnnotation.Excerpt;
+
+            Assert.Equal("And this is the second line\n"
+                         + "And this is getting boring\n"
+                         + "I should be more creative", excerpt);
+        }
+    }
 }
