@@ -27,7 +27,7 @@ namespace HaackHub
         {
             return Issues
                 .Include(issue => issue.Assigned)
-                .ThenInclude(user => user.Comments)
+                .ThenInclude(user => user!.Comments)
                 .FirstOrDefault(issue => issue.Id == id);
         }
     }
