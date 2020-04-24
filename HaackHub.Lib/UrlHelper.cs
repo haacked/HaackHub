@@ -9,23 +9,18 @@ namespace HaackHub
     {
         public string GetUrl(Content content)
         {
-            switch (content)
+            return content switch
             {
-                case Issue issue:
-                    return $"/issue/{issue.Id}";
-                case Comment comment:
-                    return $"/issue/{comment.Issue.Id}#comment_{comment.Id}";
-                case IssueAnnotation issueAnnotation:
-                    return GetUrl(issueAnnotation.Issue)
-                           + "#L" + issueAnnotation.LineNumberRange.Start.Value
-                           + "-L" + issueAnnotation.LineNumberRange.End.Value;
-                case CommentAnnotation commentAnnotation:
-                    return GetUrl(commentAnnotation.Comment)
-                           + "&L" + commentAnnotation.LineNumberRange.Start.Value
-                           + "-L" + commentAnnotation.LineNumberRange.End.Value;
-                default:
-                    throw new ArgumentException("Don't know anything about that content.");
-            }
+                Issue issue                         => $"/issue/{issue.Id}",
+                Comment comment                     => $"/issue/{comment.Issue.Id}#comment_{comment.Id}",
+                IssueAnnotation issueAnnotation     => GetUrl(issueAnnotation.Issue) + "#L" +
+                                                       issueAnnotation.LineNumberRange.Start.Value + "-L" +
+                                                       issueAnnotation.LineNumberRange.End.Value,
+                CommentAnnotation commentAnnotation => GetUrl(commentAnnotation.Comment) + "&L" +
+                                                       commentAnnotation.LineNumberRange.Start.Value + "-L" +
+                                                       commentAnnotation.LineNumberRange.End.Value,
+                _ => throw new ArgumentException("Don't know anything about that content.")
+            };
         }
     }
 }
