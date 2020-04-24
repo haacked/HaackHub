@@ -21,7 +21,23 @@ namespace HaackHub
                 return "/issue/" + comment.Issue.Id + "#comment_" + comment.Id;
             }
 
-            throw new ArgumentException("Don't know anything about content.");
+            var issueAnnotation = content as IssueAnnotation;
+            if (issueAnnotation != null)
+            {
+                return GetUrl(issueAnnotation.Issue)
+                       + "#L" + issueAnnotation.LineNumberRange.Start.Value
+                       + "-L" + issueAnnotation.LineNumberRange.End.Value;
+            }
+            
+            var commentAnnotation = content as CommentAnnotation;
+            if (commentAnnotation != null)
+            {
+                return GetUrl(commentAnnotation.Comment)
+                       + "&L" + commentAnnotation.LineNumberRange.Start.Value
+                       + "-L" + commentAnnotation.LineNumberRange.End.Value;
+            }
+
+            throw new ArgumentException("Don't know anything about that content.");
         }
     }
 }
