@@ -9,35 +9,23 @@ namespace HaackHub
     {
         public string GetUrl(Content content)
         {
-            var issue = content as Issue;
-            if (issue != null)
+            switch (content)
             {
-                return $"/issue/{issue.Id}";
+                case Issue issue:
+                    return $"/issue/{issue.Id}";
+                case Comment comment:
+                    return $"/issue/{comment.Issue.Id}#comment_{comment.Id}";
+                case IssueAnnotation issueAnnotation:
+                    return GetUrl(issueAnnotation.Issue)
+                           + "#L" + issueAnnotation.LineNumberRange.Start.Value
+                           + "-L" + issueAnnotation.LineNumberRange.End.Value;
+                case CommentAnnotation commentAnnotation:
+                    return GetUrl(commentAnnotation.Comment)
+                           + "&L" + commentAnnotation.LineNumberRange.Start.Value
+                           + "-L" + commentAnnotation.LineNumberRange.End.Value;
+                default:
+                    throw new ArgumentException("Don't know anything about that content.");
             }
-
-            var comment = content as Comment;
-            if (comment != null)
-            {
-                return $"/issue/{comment.Issue.Id}#comment_{comment.Id}";
-            }
-
-            var issueAnnotation = content as IssueAnnotation;
-            if (issueAnnotation != null)
-            {
-                return GetUrl(issueAnnotation.Issue)
-                       + "#L" + issueAnnotation.LineNumberRange.Start.Value
-                       + "-L" + issueAnnotation.LineNumberRange.End.Value;
-            }
-            
-            var commentAnnotation = content as CommentAnnotation;
-            if (commentAnnotation != null)
-            {
-                return GetUrl(commentAnnotation.Comment)
-                       + "&L" + commentAnnotation.LineNumberRange.Start.Value
-                       + "-L" + commentAnnotation.LineNumberRange.End.Value;
-            }
-
-            throw new ArgumentException("Don't know anything about that content.");
         }
     }
 }
