@@ -14,19 +14,19 @@ namespace HaackHub
                 Issue issue                         => $"/issue/{issue.Id}",
                 Comment comment                     => $"/issue/{comment.Issue.Id}#comment_{comment.Id}",
                 IssueAnnotation issueAnnotation     =>
-                    $"{GetUrl(issueAnnotation.Issue)}#{GetRangeFragment(issueAnnotation.LineNumberRange)}",
+                    $"{GetUrl(issueAnnotation.Issue)}#{GetRangeFragment(issueAnnotation)}",
                 CommentAnnotation commentAnnotation =>
-                    $"{GetUrl(commentAnnotation.Comment)}&{GetRangeFragment(commentAnnotation.LineNumberRange)}",
+                    $"{GetUrl(commentAnnotation.Comment)}&{GetRangeFragment(commentAnnotation)}",
                 _ => throw new ArgumentException("Don't know anything about that content.")
             };
         }
 
-        string GetRangeFragment(Range range)
+        string GetRangeFragment(Annotation annotation)
         {
-            return range switch {
-                _ when range.Start.Value == range.End.Value => $"L{range.Start.Value}",
-                _ when range.Start.Value < range.End.Value => $"L{range.Start.Value}-L{range.End.Value}",
-                _ when range.Start.Value > range.End.Value => $"L{range.End.Value}-L{range.Start.Value}",
+            return annotation switch {
+                var (start, end) when start == end => $"L{start}",
+                var (start, end) when start < end => $"L{start}-L{end}",
+                var (start, end) when start > end => $"L{end}-L{start}",
                 _ => throw new InvalidOperationException("You are in an alternate universe where nothing is impossible.")
             };
         }
