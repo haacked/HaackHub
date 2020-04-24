@@ -11,7 +11,7 @@ namespace HaackHub
         
         public User? Assigned { get; set; }
         
-        public string GetLogDescription()
+        public override string GetLogDescription()
         {
             return $"Issue {Id} created by {Creator.Name}";
         }
