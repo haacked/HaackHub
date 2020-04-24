@@ -22,6 +22,14 @@ namespace HaackHub
             }
             throw new NotImplementedException();
         }
+        
+        public Issue LoadIssue(int id)
+        {
+            return Issues
+                .Include(issue => issue.Assigned)
+                .ThenInclude(user => user.Comments)
+                .FirstOrDefault(issue => issue.Id == id);
+        }
     }
     
 #region Fake stuff so I don't have to set up a full EF setup
