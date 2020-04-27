@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -12,6 +13,7 @@ namespace HaackHub
     {
         public IQueryable<Issue> Issues { get; } = null!;
 
+        [return: MaybeNull]
         public T Find<T>(int id) where T : class
         {
             if (typeof(T) == typeof(Issue))
