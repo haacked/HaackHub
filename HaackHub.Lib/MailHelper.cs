@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace HaackHub
 {
@@ -32,7 +33,7 @@ namespace HaackHub
         {
             var assignedTo = IsNull(issue.Assigned)
                 ? " not assigned"
-                : GetAssignedToMessage(issue.Assigned!);
+                : GetAssignedToMessage(issue.Assigned);
             return $"{issue.Title} created by {issue.Creator.Name} and {assignedTo}.";
         }
 
@@ -41,7 +42,7 @@ namespace HaackHub
             return $"assigned to {assignee.Id}";
         }
 
-        bool IsNull(User? user)
+        bool IsNull([NotNullWhen(false)]User? user)
         {
             return user is null;
         }
