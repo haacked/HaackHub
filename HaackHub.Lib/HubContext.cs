@@ -10,7 +10,16 @@ namespace HaackHub
     /// </summary>
     public class HubContext
     {
-        public IQueryable<Issue> Issues { get; set; }
+        public IQueryable<Issue> Issues { get; } = null!;
+
+        public T Find<T>(int id) where T : class
+        {
+            if (typeof(T) == typeof(Issue))
+            {
+                return Issues.FirstOrDefault(i => i.Id == id) as T;
+            }
+            throw new NotImplementedException();
+        }
     }
     
 #region Fake stuff so I don't have to set up a full EF setup
